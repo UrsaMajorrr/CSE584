@@ -1,0 +1,3 @@
+[submodule "midterm_project/midterm_project/llama_models"]
+	path = midterm_project/midterm_project/llama_models
+	url = https://github.com/meta-llama/llama-models.git
