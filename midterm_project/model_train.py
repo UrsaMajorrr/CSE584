@@ -12,25 +12,12 @@ from LLM_datasets import LLMDataset
 from transformers import BertTokenizer
 from sklearn.model_selection import train_test_split
 import pandas as pd
+from model_arch import LLMClassifier
 
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 
-class LLMClassifier(nn.Module):
-    def __init__(self, vocab_size, embed_dim, hidden_dim, output_dim, num_layers, dropout):
-        super(LLMClassifier, self).__init__()
-        self.embedding = nn.Embedding(vocab_size, embed_dim)
-        self.lstm = nn.LSTM(embed_dim, hidden_dim, num_layers=num_layers, batch_first=True, dropout=dropout)
-        self.fc = nn.Linear(hidden_dim, output_dim)
-
-    def forward(self, input_ids):
-        x = self.embedding(input_ids)
-        _, (hidden, _) = self.lstm(x)
-        output = hidden[-1]
-        output = self.fc(output)
-        return output
-
 # Load in dataset
-df = pd.read_csv('data.csv')
+df = pd.read_csv('datasets/data.csv') # Must be changed if using different dataset
 
 model_mapping = {
     "gpt-4o-mini": 0,
@@ -60,13 +47,13 @@ embed_dim = 128
 hidden_dim = 256
 output_dim = 7  # Can change this if more LLMs are added to dataset
 num_layers = 2
-dropout = 0.3
+dropout = 0.5
 model = LLMClassifier(vocab_size, embed_dim, hidden_dim, output_dim, num_layers, dropout)
 model.to(device)
 
 # Initialize loss and optimizer
 loss_func = nn.CrossEntropyLoss()
-optimizer = optim.Adam(model.parameters(), lr=0.001, weight_decay=1e-5) # Need some weight decay to prevent overfitting
+optimizer = optim.Adam(model.parameters(), lr=0.001, weight_decay=1e-4) # Need some weight decay to prevent overfitting
 
 num_epochs = 10
 for epoch in range(num_epochs):
@@ -110,7 +97,7 @@ for epoch in range(num_epochs):
         val_accuracy = correct / total
         print(f"Val Accuracy: {val_accuracy:.4f}")
 
-torch.save(model.state_dict(), 'model_1.pth')
+torch.save(model.state_dict(), 'model_weights/model_12.pth')
 print("Saved model weights")
 
 print("Done training")
