@@ -97,7 +97,7 @@ for epoch in range(num_epochs):
         val_accuracy = correct / total
         print(f"Val Accuracy: {val_accuracy:.4f}")
 
-torch.save(model.state_dict(), 'model_weights/model_12.pth')
+torch.save(model.state_dict(), 'model_weights/model_1.pth')
 print("Saved model weights")
 
 print("Done training")

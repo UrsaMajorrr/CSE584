@@ -91,6 +91,18 @@ few_shot_prompts = [
     "Listen to this one-liner joke: [Example: Listen to this one-liner joke: I have an inferiority complex but it's not a very good one.]"
 ]
 
+# few_shot_prompts_small = [
+#     "My favorite song is [Example: My favorite song is One by Metallica.]",
+#     "My favorite food is [Examle: My favorite food is mac and cheese.]",
+#     "My daily routine involves [Example: My daily routine involves brushing my teeth and taking a shower]",
+#     "I like this t-shirt because [Example: I like this t-shirt because the graphic is cool.]",
+#     "My biggest fear is [Example: My biggest fear is flying.]",
+#     "I find fault in [Example: I find fault in people that interrupt me.]",
+#     "I like math because [Example: I like math because it challenges me.]",
+#     "12 times 12 is 144. I think about it this way: [Example: 12 times 12 is 144. I think about it this way: 12 times 10 is 120 + 12 times 2 is 24 makes 144]",
+#     "Listen to this one-liner joke: [Example: Listen to this one-liner joke: I have an inferiority complex but it's not a very good one.]"
+# ]
+
 test_prompts = [
     "Someone hurt me",
     "I experienced a miracle",
@@ -100,7 +112,7 @@ test_prompts = [
 ]
 
 models = ['gpt-4o-mini', 'claude-2.1', 'command-r-plus', 'jamba-1.5-large', 'llama-3.2-1B', 'mistral-large-latest', 'gpt-neo-1.3B']
-filename = "datsets/llm_train_few_shot_data.json"
+filename = "llm_train_zero_shot_long.json"
 if not os.path.exists(filename):
     with open(filename, 'w') as f:
         json.dump([], f)
